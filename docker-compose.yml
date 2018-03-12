@@ -1,0 +1,29 @@
+version: '3'
+services:
+  client:
+    build: ./client
+    volumes:
+      - ./client:/usr/src/app
+    environment:
+      - VIRTUAL_HOST=client.ticket.localhost
+  server:
+    build: ./server
+    volumes:
+      - ./server:/usr/src/app
+    depends_on:
+      - postgres
+    environment:
+      - VIRTUAL_HOST=backend.ticket.localhost
+
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_USER=admin
+      - POSTGRES_DB=tickets
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro

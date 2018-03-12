@@ -1,0 +1,11 @@
+.seat {
+    width: 15px;
+    height: 15px;
+    margin: 5px;
+}
+
+.free { background-color: green; }
+
+.reserved { background-color: yellow; }
+
+.sold { background-color: red; }
