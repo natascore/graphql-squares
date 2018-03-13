@@ -17,7 +17,7 @@ const UPDATE_SEAT_MUTATION = gql`
   name: 'updateSeatMutation'
 })
 class Seat extends Component {
-  calculateNextState(status) {
+  static calculateNextState(status) {
     if (status === 'free')
       return 'reserved'
     if (status === 'reserved')
@@ -28,7 +28,7 @@ class Seat extends Component {
   _handleClick = async () => {
     // ... you'll implement this in chapter 6
     const id = this.props.id
-    const status = this.calculateNextState(this.props.status)
+    const status = Seat.calculateNextState(this.props.status)
     await this.props.updateSeatMutation({
       variables: {
         id,
@@ -38,7 +38,7 @@ class Seat extends Component {
   }
   render() {
     return (
-      <div className={`${this.props.status} seat`} onClick={this._handleClick}></div>
+      <div className={`${this.props.status} seat`} onClick={this._handleClick}>{this.props.id}</div>
     );
   }
 }
