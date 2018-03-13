@@ -1,16 +1,18 @@
 {
   "name": "server",
   "scripts": {
-    "start": "babel-node src/index.js",
+    "start": "nodemon --exec 'babel-node src/index.js'",
     "dev": "npm-run-all --parallel start playground",
     "playground": "graphql playground"
   },
   "dependencies": {
+    "babel-cli": "^6.26.0",
+    "graphql-redis-subscriptions": "^1.4.0",
     "graphql-subscriptions": "^0.5.8",
     "graphql-yoga": "1.4.3",
     "merge-graphql-schemas": "^1.5.0",
-    "sequelize": "^4.35.2",
-    "babel-cli": "^6.26.0"
+    "pg": "^7.4.1",
+    "sequelize": "^4.35.2"
   },
   "devDependencies": {
     "babel-preset-env": "^1.6.0",
