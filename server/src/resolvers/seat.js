@@ -5,7 +5,7 @@ const SEAT_CHANGED_TOPIC = 'seat_changed'
 export default {
   Query: {
     getSeat: (parent, { id }, { models }) => models.Seat.findOne({ where: { id } }),
-    allSeats: (parent, args, { models }) => models.Seat.findAll(),
+    allSeats: (parent, args, { models }) => models.Seat.findAll({ order: models.sequelize.col('id') }),
   },
   Mutation: {
     createSeat: (partent, args, { models }) => {
