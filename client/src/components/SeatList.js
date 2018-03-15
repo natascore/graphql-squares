@@ -21,6 +21,15 @@ const SEAT_CHANGED_SUBSCRIPTION = gql`
     }
 `;
 
+const SEAT_ADDED_SUBSCRIPTION = gql`
+  subscription {
+      seatAdded {
+          id
+          status
+      }
+  }
+`
+
 @graphql(ALL_SEATS_QUERY, {
   name: 'seats',
   props: props => {
@@ -31,12 +40,29 @@ const SEAT_CHANGED_SUBSCRIPTION = gql`
           document: SEAT_CHANGED_SUBSCRIPTION,
         })
       },
+      subscribeToSeatAdded: () => {
+        return props.seats.subscribeToMore({
+          document: SEAT_ADDED_SUBSCRIPTION,
+          updateQuery: (prev, {subscriptionData}) => {
+            if (!subscriptionData.data) {
+              return prev;
+            }
+
+            const newSeat = subscriptionData.data.seatAdded
+
+            return Object.assign({}, prev, {
+                allSeats: [...prev.allSeats, newSeat]
+            })
+          }
+        })
+      }
     }
   }
 })
 class SeatList extends Component {
   componentDidMount() {
     this.props.subscribeToChangedSeats()
+    this.props.subscribeToSeatAdded()
   }
   render() {
     if(this.props.seats.loading) {
