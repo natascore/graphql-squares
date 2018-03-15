@@ -24,13 +24,20 @@ const SEAT_CHANGED_SUBSCRIPTION = gql`
 @graphql(ALL_SEATS_QUERY, {
   name: 'seats',
   props: props => {
-    props.seats.subscribeToMore({
-      document: SEAT_CHANGED_SUBSCRIPTION,
-    })
-    return props
+    return {
+      ...props,
+      subscribeToChangedSeats: () => {
+        return props.seats.subscribeToMore({
+          document: SEAT_CHANGED_SUBSCRIPTION,
+        })
+      },
+    }
   }
 })
 class SeatList extends Component {
+  componentDidMount() {
+    this.props.subscribeToChangedSeats()
+  }
   render() {
     if(this.props.seats.loading) {
       return <div>Loading</div>
