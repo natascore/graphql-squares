@@ -1,6 +1,6 @@
 import Sequelize from 'sequelize';
 
-const sequelize = new Sequelize('tickets', 'admin', 'admin', {
+const sequelize = new Sequelize('squares', 'admin', 'admin', {
   host: 'postgres',
   dialect: 'postgres',
   define: {
@@ -9,7 +9,7 @@ const sequelize = new Sequelize('tickets', 'admin', 'admin', {
 });
 
 const models = {
-  Seat: sequelize.import('./seat'),
+  Square: sequelize.import('./square'),
 };
 
 Object.keys(models).forEach((modelName) => {

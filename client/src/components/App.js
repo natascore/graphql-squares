@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../styles/App.css';
-import SeatList from './SeatList'
+import SquareList from './SquareList'
 
 const data = [
   { id: 1, status: 'free' },
@@ -11,7 +11,7 @@ const data = [
 class App extends Component {
   render() {
     return (
-      <SeatList seats={data}/>
+      <SquareList squares={data}/>
     );
   }
 }

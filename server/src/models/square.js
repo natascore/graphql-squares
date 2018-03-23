@@ -1,9 +1,9 @@
 export default (sequelize, DataTypes) => {
-  const Seat = sequelize.define('seat', {
+  const Square = sequelize.define('square', {
     status: {
       type: DataTypes.STRING,
     }
   });
 
-  return Seat;
+  return Square;
 };

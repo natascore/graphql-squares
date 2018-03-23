@@ -2,21 +2,21 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
-import '../styles/Seat.css'
+import '../styles/Square.css'
 
-const UPDATE_SEAT_MUTATION = gql`
-    mutation updateSeatMutation($id: Int!, $status: String!){
-        updateSeat(id: $id, status: $status) {
+const UPDATE_SQUARE_MUTATION = gql`
+    mutation updateSquareMutation($id: Int!, $status: String!){
+        updateSquare(id: $id, status: $status) {
             id,
             status
         }
     }
 `
 
-@graphql(UPDATE_SEAT_MUTATION, {
-  name: 'updateSeatMutation'
+@graphql(UPDATE_SQUARE_MUTATION, {
+  name: 'updateSquareMutation'
 })
-class Seat extends Component {
+class Square extends Component {
   static calculateNextState(status) {
     if (status === 'free')
       return 'reserved'
@@ -28,8 +28,8 @@ class Seat extends Component {
   _handleClick = async () => {
     // ... you'll implement this in chapter 6
     const id = this.props.id
-    const status = Seat.calculateNextState(this.props.status)
-    await this.props.updateSeatMutation({
+    const status = Square.calculateNextState(this.props.status)
+    await this.props.updateSquareMutation({
       variables: {
         id,
         status
@@ -38,14 +38,14 @@ class Seat extends Component {
   }
   render() {
     return (
-      <div className={`${this.props.status} seat`} onClick={this._handleClick}>{this.props.id}</div>
+      <div className={`${this.props.status} square`} onClick={this._handleClick}>{this.props.id}</div>
     );
   }
 }
 
-Seat.propTypes = {
+Square.propTypes = {
   status: PropTypes.string.isRequired,
 }
 
 
-export default Seat;
+export default Square;
