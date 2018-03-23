@@ -21,6 +21,8 @@ services:
       - POSTGRES_PASSWORD=admin
       - POSTGRES_USER=admin
       - POSTGRES_DB=squares
+    volumes:
+      - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
   lb:
     image: dockercloud/haproxy
     links:
