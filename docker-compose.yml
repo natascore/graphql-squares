@@ -2,15 +2,15 @@ version: '3'
 services:
   client:
     build: ./client
-    volumes:
-      - ./client:/usr/src/app
+    environment:
+      - VIRTUAL_HOST=client.localhost
   server:
     build: ./server
-    volumes:
-      - ./server:/usr/src/app
     depends_on:
       - postgres
       - redis
+    environment:
+      - VIRTUAL_HOST=backend.localhost
 
   redis:
     image: redis
