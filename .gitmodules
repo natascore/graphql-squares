@@ -1,3 +1,6 @@
 [submodule "server"]
 	path = server
 	url = git@github.com:natascore/squares-server.git
+[submodule "client"]
+	path = client
+	url = git@github.com:natascore/sqaures-client.git
