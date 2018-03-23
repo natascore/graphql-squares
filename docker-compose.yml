@@ -4,8 +4,6 @@ services:
     build: ./client
     volumes:
       - ./client:/usr/src/app
-    environment:
-      - VIRTUAL_HOST=client.ticket.localhost
   server:
     build: ./server
     volumes:
@@ -13,8 +11,6 @@ services:
     depends_on:
       - postgres
       - redis
-    environment:
-      - VIRTUAL_HOST=backend.ticket.localhost
 
   redis:
     image: redis
