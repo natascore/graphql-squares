@@ -2,15 +2,17 @@ version: '3'
 services:
   client:
     build: ./client
+    ports:
+      - "5000"
     environment:
-      - VIRTUAL_HOST=client.localhost
+      - "REACT_APP_BACKEND_URI=localhost:4000"
   server:
     build: ./server
+    ports:
+      - "4000"
     depends_on:
       - postgres
       - redis
-    environment:
-      - VIRTUAL_HOST=backend.localhost
 
   redis:
     image: redis
@@ -23,12 +25,3 @@ services:
       - POSTGRES_DB=squares
     volumes:
       - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
-  lb:
-    image: dockercloud/haproxy
-    links:
-      - server
-      - client
-    ports:
-      - "80:80"
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
